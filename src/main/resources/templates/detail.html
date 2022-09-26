@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout.html}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity-5">
+<div layout:fragment="mainContent" th:each="p:${phone}" >
+    <div style="display: flex">
+            <!-- PRODUCT DETAILS-->
+            <div class="col-6" >
+              <img th:src="@{'/admin/getpicture/'+ ${p.photo}}" style="width: 500px;height: 500px">
+              </div>
+    <div class="col-6">
+              <h1 th:text="${p.model}"></h1>
+              <p class="text-muted lead" th:text="${p.price} + ' KZT'"></p>
+              <div class="row align-items-stretch mb-4">
+                <div class="col-sm-3 pl-sm-0">
+                    <form th:action="@{'/addtobasket'}" method="post">
+                    <input type="hidden" name="phone_id" th:value="${p.id}">
+                    <input type="hidden" name="direction" th:value="${'/shop'}">
+                    <button class="btn btn-dark  btn-lg btn-block h-100 d-flex align-items-center justify-content-center px-0">Add to basket</button>
+                    </form>
+                </div>
+              </div>
+        <form th:action="@{'/addtofavorites'}" method="post">
+            <input type="hidden" name="phone_id" th:value="${p.id}">
+            <input type="hidden" name="direction" th:value="${'/shop'}">
+            <button class="text-dark p-0 mb-4 d-inline-block border-0 bg-white" href="#!"><i class="far fa-heart me-2"></i>Add to wish list</button>
+        </form>
+              <ul class="list-unstyled small d-inline-block">
+                <li class=" py-2 mb-1 bg-white"><strong class="text-uppercase">Memory:</strong><span class="ms-2 text-muted" th:text="${p.memory}"></span></li>
+                <li class=" py-2 mb-1 bg-white"><strong class="text-uppercase">Camera:</strong><span class="ms-2 text-muted" th:text="${p.camera}"></span></li>
+                <li class=" py-2 mb-1 bg-white"><strong class="text-uppercase">Processor:</strong><span class="ms-2 text-muted" th:text="${p.processor}"></span></li>
+                <li class=" py-2 mb-1 bg-white"><strong class="text-uppercase">Wireless Interfaces:</strong><span class="ms-2 text-muted" th:text="${p.interfaces}"></span></li>
+                <li class=" py-2 mb-1 bg-white text-muted"><strong class="text-uppercase text-dark">Category:</strong><a class="reset-anchor ms-2" href="#!"><span th:text="${p.category.name}"></span></a></li>
+                <li class=" py-2 mb-1 bg-white text-muted"><strong class="text-uppercase text-dark">Brand:</strong><a class="reset-anchor ms-2" href="#!"><span th:text="${p.brand.name} + ' - ' +${p.brand.country}"></span></a></li>
+              </ul>
+            </div>
+    </div>
+          <!-- DETAILS TABS-->
+          <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
+            <li class="nav-item"><a class="nav-link text-uppercase active" id="description-tab" data-bs-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a></li>
+            <li class="nav-item"><a class="nav-link text-uppercase" id="reviews-tab" data-bs-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews</a></li>
+          </ul>
+          <div class="tab-content mb-5" id="myTabContent">
+            <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+              <div class="p-4 p-lg-5 bg-white">
+                <h6 class="text-uppercase">Product description </h6>
+                <p class="text-muted text-sm mb-0">Many consumers use their smartphones to engage with friends, family and brands on social media. Social media platforms such as Facebook, Instagram, Twitter and LinkedIn all have mobile apps that a user can download from their phone's app store. These apps make it possible for smartphone users to post personal updates and photos while on the go. Another common use for smartphones is health and wellness tracking. The Health app for iOS, for instance, can keep track of sleep behavior, nutrition, body measurements, vital signs, mental health exercises and more. Third-party wearable devices, such as smartwatches, can connect with a smartphone to monitor an individual's health statistics, such as heart rate, and send information to be aggregated on the phone. Mobile payment is another widespread use for smartphones. Wallet features allow users to save credit card information on their phones to use when purchasing items at retail stores. Apps such as Apple Pay also enable users to pay other iOS users directly from their phones.</p>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab" >
+              <div class="p-4 p-lg-5 bg-white">
+                <div class="row">
+                  <div class="col-lg-8">
+                    <div class=" mb-3">
+                        <div th:each="c:${commentaries}">
+                      <div class="flex-shrink-0 mb-2">
+                          <img class="rounded-circle" th:src="@{'/getavatar/' + ${c.user.avatar}}" alt="" width="50"/>
+                      </div>
+                      <div class="flex-shrink-1">
+                        <h6 class="mb-0 text-uppercase" th:text="${c.user.fullName}"></h6>
+                        <p class="small text-muted mb-0 text-uppercase"><span th:text="${c.createdAt}"></span></p>
+                        <p class="text-sm mb-0 text-muted mt-2" th:text="${c.commentary}"></p>
+                      </div>
+                            <br>
+                        </div>
+                        <br>
+                        <div class="flex-shrink-1" sec:authorize="isAuthenticated()">
+                            <form th:action="@{'/addcommentary'}" method="post">
+                                <input type="hidden" name="phone_id" th:value="${p.id}">
+                            <textarea class="form-control" name="commentary" placeholder="Add ur review" style="border-radius: 10px; height: 120px" required></textarea>
+                                <button type="submit" class="btn btn-warning mt-2 btn-sm">
+                                    <i class='far fa-comment-alt'></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+</div>
+</html>

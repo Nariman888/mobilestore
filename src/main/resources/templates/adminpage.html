@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/adminlayout.html}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity-5">
+<div layout:fragment="mainContent">
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">IMAGE</th>
+      <th scope="col">MODEL</th>
+      <th scope="col">PRICE</th>
+      <th scope="col">AMOUNT</th>
+      <th scope="col">CATEGORY</th>
+      <th scope="col">BRAND</th>
+      <th scope="col">DETAILS</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="ph:${allPhones}">
+      <td th:text="${ph.id}"></td>
+      <td >
+        <img th:src="@{'/admin/getpicture/'+ ${ph.photo}}" class="img-thumbnail" style="width: 150px;height: 150px">
+      </td>
+      <td th:text="${ph.model}"></td>
+      <td th:text="${ph.price}"></td>
+      <td th:text="${ph.amount}"></td>
+      <td th:text="${ph.category.name}"></td>
+      <td th:text="${ph.brand.name} + ' - ' + ${ph.brand.country}"></td>
+      <td>
+        <a th:href="'/admin/details/' + ${ph.id}" class="btn btn-primary btn-sm">DETAILS</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</html>

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity-5">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.84.0">
+    <title>Sidebars · Bootstrap v5.0</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sidebars/">
+
+    
+
+    <!-- Bootstrap core CSS -->
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    <!-- Custom styles for this template -->
+    <link href="/css/sidebars.css" rel="stylesheet">
+  </head>
+  <body>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-3">
+<main>
+  <div class="flex-shrink-0 p-3 bg-white" style="width: 280px;">
+    <a href="/static" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+      <span class="fs-5 fw-semibold">Admin Panel</span>
+    </a>
+    <ul class="list-unstyled ps-0">
+      <li class="mb-1">
+        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+          Add Panel
+        </button>
+        <div class="collapse show" id="home-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="#" class="link-dark rounded" th:href="@{'/admin/addbrand'}">Add Brand</a></li>
+            <li><a href="#" class="link-dark rounded" th:href="@{'/admin/addcategory'}">Add Category</a></li>
+            <li><a href="#" class="link-dark rounded" th:href="@{'/admin/addphone'}">Add Phone</a></li>
+            <li><a href="#" class="link-dark rounded" th:href="@{'/admin/'}">All Phones</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="mb-1">
+        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+          Account
+        </button>
+        <div class="collapse" id="dashboard-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="#" class="link-dark rounded" th:href="@{'/profile'}">Profile</a></li>
+            <li><a href="#" class="link-dark rounded" th:href="@{'/'}">To Store</a></li>
+            <li><a href="#" class="link-dark rounded" th:href="@{'/signout'}">Sign Out</a></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+</main>
+      </div>
+      <div class="col-md-9">
+<div layout:fragment="mainContent" style="min-height: 1000px">
+
+</div>
+      </div>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+      <script src="/js/sidebars.js"></script>
+    </div>
+  </div>
+  </body>
+  <br>
+  <br>
+  <footer class="bg-dark text-white">
+    <div class="container py-4">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <p class="small text-muted mb-0 text-center" >&copy; 2022 MOBSTORE. All rights reserved.</p>
+          </div>
+        </div>
+    </div>
+  </footer>
+</html>

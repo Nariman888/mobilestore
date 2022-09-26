@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout.html}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity-5">
+<div layout:fragment="mainContent">
+    <form th:action="@{'/search'}" method="post">
+        <div class="d-flex container px-md-3 pb-4 pt-0 justify-content-end">
+            <input class="form-control me-2 " type="search" name="search" placeholder="Search" aria-label="Search" style="width: 220px">
+            <button class="btn border-warning bg-white " style="color: goldenrod">Search</button>
+        </div>
+    </form>
+
+        <!-- HERO SECTION-->
+        <section class="py-5 bg-light">
+          <div class="container">
+            <div class="row px-4 px-lg-5 py-lg-4 align-items-center">
+              <div class="col-lg-6">
+                <h1 class="h2 text-uppercase mb-0">Shop</h1>
+              </div>
+              <div class="col-lg-6 text-lg-end">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb justify-content-lg-end mb-0 px-0 bg-light">
+                    <li class="breadcrumb-item"><a class="text-dark" th:href="@{'/'}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Shop</li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </section>
+
+    <section class="py-5">
+        <div class="row">
+            <!-- SHOP SIDEBAR-->
+            <div class="col-lg-3 order-2 order-lg-1">
+                <div class="py-2 px-4 bg-dark text-white mb-3"><strong class="small text-uppercase fw-bold">Categories</strong></div>
+                <ul class="list-unstyled small text-muted ps-lg-4 font-weight-normal">
+                    <li class="mb-2" th:each="c:${categories}"><a class="reset-anchor" th:href="@{'/shop/' + ${c.id}}" th:text="${c.name}"></a></li>
+                </ul>
+                <div class="py-2 px-4 bg-dark text-white mb-3"><strong class="small text-uppercase fw-bold">Brand</strong></div>
+                <ul class="list-unstyled small text-muted ps-lg-4 font-weight-normal">
+                    <li class="mb-2" th:each="b:${brands}"><a class="reset-anchor"  th:href="@{'/findbybrand/' + ${b.id}}" th:text="${b.name}"></a></li>
+                </ul>
+                <div class="card shadow" style="width: 18rem;">
+                    <div class="card-body">
+                        <label class="mt-2 fw-bold fs-4"><h6 class="text-uppercase mb-4">Price range</h6></label><br>
+                        <form th:action="@{'/searchbyprice'}" method="post">
+                        <div class="d-flex pb-2">
+                        <input id="from" min="0" name="from" class="form-control " style="width: 120px" type="number" placeholder="from">
+                        <input id="till" name="till" class="form-control " type="number"  style="width: 120px" placeholder="till">
+                        </div>
+                        <button class="btn-sm border-warning bg-white mt-2" style="color: goldenrod">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">
+                <div class="row mb-3 justify-content-end">
+                    <div class="col-lg-2 justify-content-end" >
+                        <ul class="list-inline mb-0">
+                            <li class="list-inline-item">
+                                <h6 >Sort By Price: </h6></li>
+                            <li> <a th:href="@{'/mintomaxprice'}" class="border-2">Low to High</a></li>
+                            <li>  <a th:href="@{'/maxtominprice'}">High to Low</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- PRODUCT-->
+        <div class="row">
+    <div class="col-lg-4 col-sm-6 mt-3" th:each="ph:${allPhones}">
+        <div class="product text-center">
+            <div class="mb-3 position-relative">
+                <div class="badge text-white bg-"></div><a class="d-block" th:href="@{'/details/'+${ph.id}}"><img class="img-fluid w-100"  th:src="@{'/admin/getpicture/'+ ${ph.photo}}"></a>
+                <div class="product-overlay">
+                    <ul class="mb-0 list-inline">
+                        <form th:action="@{'/addtofavorites'}" method="post">
+                            <input type="hidden" name="phone_id" th:value="${ph.id}">
+                            <input type="hidden" name="direction" th:value="${'/shop'}">
+                        <li class="list-inline-item m-0 p-0"><button class="btn btn-sm btn-outline-dark border-0" ><i class="far fa-heart"></i></button></li>
+                        </form>
+                        <form th:action="@{'/addtobasket'}" method="post">
+                            <input type="hidden" name="phone_id" th:value="${ph.id}">
+                            <input type="hidden" name="direction" th:value="${'/shop'}">
+                            <li class="list-inline-item m-0 p-0"><button type="submit" class="btn btn-sm btn-dark">Add to basket</button></li>
+                        </form>
+                    </ul>
+                </div>
+            </div>
+            <h6> <a class="reset-anchor" th:href="@{'/details/'+${ph.id}}"><span th:text="${ph.model}"></span></a></h6>
+            <p class="small text-muted" th:text="${ph.price} + ' KZT'"></p>
+        </div>
+    </div>
+        </div>
+        </div>
+        </div>
+</section>
+    </div>
+</html>

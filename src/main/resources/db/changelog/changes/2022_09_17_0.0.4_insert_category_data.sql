@@ -1,0 +1,4 @@
+INSERT INTO category (name) VALUES
+('SMARTPHONE'),('PUSH-BUTTON PHONE'),('PHABLET');
+
+

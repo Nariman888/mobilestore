@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout.html}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity-5">
+
+    <div class="page-holder" layout:fragment="mainContent" >
+        <!-- HERO SECTION-->
+        <section class="py-5 bg-light">
+          <div class="container">
+            <div class="row px-4 px-lg-5 py-lg-4 align-items-center">
+              <div class="col-lg-6">
+                <h1 class="h2 text-uppercase mb-0">Order History</h1>
+              </div>
+              <div class="col-lg-6 text-lg-end">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb justify-content-lg-end mb-0 px-0 bg-light">
+                    <li class="breadcrumb-item"><a class="text-dark" th:href="@{'/shop'}">Shop</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Order History</li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="py-5">
+          <h2 class="h5 text-uppercase mb-4">Order History</h2>
+          <div class="row">
+            <div class="col-lg-8 mb-4 mb-lg-0">
+              <!-- CART TABLE-->
+
+              <div class="table-responsive mb-4">
+                <table class="table text-nowrap">
+                  <thead class="bg-light">
+                    <tr>
+                      <th class="border-0 p-3" scope="col"> <strong class="text-sm text-uppercase">Phone</strong></th>
+                      <th class="border-0 p-3" scope="col"> <strong class="text-sm text-uppercase">Price</strong></th>
+                      <th class="border-0 p-3" scope="col"> <strong class="text-sm text-uppercase">Buy Time</strong></th>
+                    </tr>
+                  </thead>
+                  <tbody class="border-0" th:each="o:${orders}" >
+                    <tr>
+                      <th class="ps-0 py-3 border-light" scope="row">
+                        <div class="d-flex align-items-center"><a class="reset-anchor d-block animsition-link" th:href="@{'/details/'+${o.phone.id}}"><img th:src="${'/admin/getpicture/' + o.phone.photo}" alt="..." width="70"/></a>
+                          <div class="ms-3"><strong class="h6"><a class="reset-anchor animsition-link" th:href="@{'/details/'+${o.phone.id}}"><span th:text="${o.phone.model}"></span></a></strong></div>
+                        </div>
+                      </th>
+                      <td class="p-3 align-middle border-light">
+                        <p class="mb-0 small" th:text="${o.phone.price} + ' KZT'"></p>
+                      </td>
+                      <td class="p-3 align-middle border-light">
+                        <p class="mb-0 small" th:text="${o.createdAt}"></p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- CART NAV-->
+              <div class="bg-light px-4 py-3">
+                <div class="row align-items-center text-center">
+                  <div class="col-md-6 mb-3 mb-md-0 text-md-start"><a class="btn btn-link p-0 text-dark btn-sm" th:href="@{/shop}"><i class="fas fa-long-arrow-alt-left me-2"> </i>Continue shopping</a></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+    </div>
+</html>

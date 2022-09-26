@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/adminlayout.html}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity-5">
+<div layout:fragment="mainContent">
+    <form th:action="@{/admin/addBrand}"  method="post">
+        <div class="update-list ">
+            <div class="update-list__content">
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Brand name</label>
+                    <input type="text" class="form-control"  name="name" id="exampleFormControlInput1" placeholder="Brand name">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput10" class="form-label">Country</label>
+                    <input type="text" class="form-control"  name="c_name" id="exampleFormControlInput10" placeholder="Country name">
+                </div>
+                <button class="btn btn-sm btn-warning">Add Brand</button>
+            </div>
+        </div>
+    </form>
+    <br>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">BrandID</th>
+            <th scope="col">Brand Name</th>
+            <th scope="col">Brand Country</th>
+            <th scope="col">Delete Brand</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="br:${brands}">
+            <td th:text="${br.id}" ></td>
+            <td th:text="${br.name}"></td>
+            <td th:text="${br.country}"></td>
+            <form th:action="@{'/admin/deleteBrand'}" method="post">
+                <td>
+                    <input type="hidden" name="brand_id" th:value="${br.id}">
+                    <button class="btn btn-sm btn-danger ">Delete Brand</button>
+                </td>
+            </form>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/adminlayout.html}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity-5">
+<div layout:fragment="mainContent">
+        <div class="update-list ">
+            <form th:action="@{'/admin/updatePhone'}" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="id" th:value="${ph.id}">
+                <div class="row mt-3">
+                    <div>
+                        <img th:src="@{'/admin/getpicture/'+ ${ph.photo}}" style="height: 300px;width: 300px">
+                        <label  class="form-label">Choose Phone Image</label>
+                        <input class="form-control" type="file" name="img">
+                    </div>
+                </div>
+            <br>
+            <div class="update-list__content">
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">MODEL</label>
+                    <input type="text" class="form-control"  name="model"
+                           id="exampleFormControlInput1" placeholder="model" th:value="${ph.model}">
+                </div>
+                <div class="mb-3">
+                    <label for="details1" class="form-label">MEMORY</label>
+                    <textarea class="form-control"   name="memory"  placeholder="memory" th:text="${ph.memory}"> </textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">CAMERA</label>
+                    <input type="text" class="form-control"  name="camera"  placeholder="pixels" th:value="${ph.camera}">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">PROCESSOR</label>
+                    <input type="text" class="form-control"  name="processor"  placeholder="processor and os" th:value="${ph.processor}">
+                </div>
+                <div class="mb-3">
+                    <label for="details1" class="form-label">WIRELESS INTERFACES</label>
+                    <textarea class="form-control" id="details1"  name="interfaces"  placeholder="interfaces" th:text="${ph.interfaces}"> </textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="price1" class="form-label">PRICE</label>
+                    <input min="0" max="1000000000" type="number" class="form-control"  id="price1" name="price" placeholder="$" th:value="${ph.price}">
+                </div>
+                <div class="mb-3">
+                    <label  class="form-label">Amount</label>
+                    <input min="0" max="1000000000" type="number" class="form-control" name="amount" placeholder="amount" th:value="${ph.amount}">
+                </div>
+                <div class="mb-3">
+                    <label for="brand" class="form-label">Brand</label>
+                    <select class="form-control" name="brand.id" id="brand" required>
+<!--                        <option disabled selected hidden style="font-size: 5px" th:selected="${ph.brand  + ' - ' + ${ph.brand.country}}"></option>-->
+                        <option th:each="brand :${brandList!=null?brandList:null}" th:value="${brand.id!=null?brand.id:'--'}" th:text="${brand.name!=null?brand.name:'--'}+' - '+${brand.country!=null?brand.country:'--'}" th:selected="${ph.brand==brand}"></option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="category" class="form-label">Category</label>
+                    <select class="form-control" name="category.id" id="category" required>
+<!--                        <option disabled selected hidden style="font-size: 5px" th:selected="${ph.category}"></option>-->
+                        <option th:each="category :${categoryList}" th:value="${category.id}" th:text="${category.name}" th:selected="${ph.category==category}"> </option>
+                    </select>
+                </div>
+                <button class="btn btn-lg btn-warning">Update</button>
+                <button type="button" class="btn btn-danger btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Delete
+                </button>
+            </div>
+            </form>
+        </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4>Are u sure?!</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <form th:action="${'/admin/deletephone'}" method="post">
+                        <input type="hidden" name="phone_id" th:value="${ph.id}" >
+                    <button type="submit" class="btn btn-danger">YES!!!</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

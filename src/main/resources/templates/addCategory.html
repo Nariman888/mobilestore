@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/adminlayout.html}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity-5">
+<div layout:fragment="mainContent">
+    <form th:action="@{/admin/addCategory}"  method="post">
+        <div class="update-list ">
+            <div class="update-list__content">
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Category name</label>
+                    <input type="text" class="form-control"  name="name" id="exampleFormControlInput1" placeholder="Category name">
+                </div>
+                <button class="btn btn-lg btn-warning">Add Category</button>
+            </div>
+        </div>
+    </form>
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">CategoryId</th>
+                <th scope="col">Category</th>
+                <th scope="col">Delete Category</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="ct:${categories}">
+                <td th:text="${ct.id}" ></td>
+                <td th:text="${ct.name}"></td>
+                <form th:action="@{'/admin/deleteCategory'}" method="post">
+                <td>
+                    <input type="hidden" name="category_id" th:value="${ct.id}">
+                    <button class="btn btn-sm btn-danger ">Delete Category</button>
+                </td>
+                </form>
+            </tr>
+            </tbody>
+        </table>
+
+</div>
+</html>

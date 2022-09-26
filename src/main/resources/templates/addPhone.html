@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/adminlayout.html}"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity-5">
+<div layout:fragment="mainContent">
+        <div class="update-list ">
+            <form th:action="@{'/admin/addPhone'}" method="post" enctype="multipart/form-data">
+                <div class="row mt-3">
+                    <div>
+                        <label  class="form-label">Choose Phone Image</label>
+                        <input class="form-control" type="file" name="img">
+                    </div>
+                </div>
+            <br>
+            <div class="update-list__content">
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">MODEL</label>
+                    <input type="text" class="form-control"  name="model" id="exampleFormControlInput1" placeholder="model">
+                </div>
+                <div class="mb-3">
+                    <label for="details1" class="form-label">MEMORY</label>
+                    <textarea class="form-control"   name="memory"  placeholder="memory"> </textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">CAMERA</label>
+                    <input type="text" class="form-control"  name="camera"  placeholder="pixels">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">PROCESSOR</label>
+                    <input type="text" class="form-control"  name="processor"  placeholder="processor and os">
+                </div>
+                <div class="mb-3">
+                    <label for="details1" class="form-label">WIRELESS INTERFACES</label>
+                    <textarea class="form-control" id="details1"  name="interfaces"  placeholder="interfaces"> </textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="price1" class="form-label">PRICE</label>
+                    <input min="0" max="1000000000" type="number" class="form-control"  id="price1" name="price" placeholder="$">
+                </div>
+                <div class="mb-3">
+                    <label  class="form-label">Amount</label>
+                    <input min="0" max="1000000000" type="number" class="form-control" name="amount" placeholder="amount">
+                </div>
+                <div class="mb-3">
+                    <label for="brand" class="form-label">Brand</label>
+                    <select class="form-control" name="brand.id" id="brand" required>
+                        <option disabled selected hidden style="font-size: 5px">Choose the brand</option>
+                        <option th:each="brand :${brandList!=null?brandList:null}" th:value="${brand.id!=null?brand.id:'--'}" th:text="${brand.name!=null?brand.name:'--'}+' - '+${brand.country!=null?brand.country:'--'}"></option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="category" class="form-label">Category</label>
+                    <select class="form-control" name="category.id" id="category" required>
+                        <option disabled selected hidden style="font-size: 5px">Choose category</option>
+                        <option th:each="category :${categoryList}" th:value="${category.id}" th:text="${category.name}" > </option>
+                    </select>
+                </div>
+                <button class="btn btn-lg btn-warning">ADD ITEM</button>
+            </div>
+            </form>
+        </div>
+</div>
+</html>
